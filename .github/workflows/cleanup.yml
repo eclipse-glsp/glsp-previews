@@ -1,0 +1,195 @@
+name: Cleanup
+
+# Previews are removed by the publishing repository when a pull request closes, and every
+# deployment adds a commit to `previews`. This workflow is the safety net for both: it drops
+# previews whose pull request is gone, then squashes the history that has accumulated.
+
+on:
+  schedule:
+    - cron: '0 3 1 * *' # monthly, 1st day 3am UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  # Only covers this repository. Reading the pull requests of the publishing repositories works
+  # because they are public.
+  pull-requests: read
+
+concurrency:
+  group: cleanup
+  cancel-in-progress: false
+
+jobs:
+  prune:
+    name: Prune Stale Previews
+    # Not pinned to a fixed image: this job has no toolchain and nothing to reproduce, so tracking
+    # the current runner avoids a pinned image going out of support unnoticed on a monthly cron.
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Find previews of closed pull requests
+        id: stale
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+
+            const subdirectories = parent => {
+              if (!fs.existsSync(parent)) {
+                return [];
+              }
+              return fs
+                .readdirSync(parent, { withFileTypes: true })
+                .filter(entry => entry.isDirectory() && !entry.name.startsWith('.'))
+                .map(entry => entry.name);
+            };
+
+            const root = process.cwd();
+            const stale = [];
+            let unreadable = 0;
+
+            // Every top-level directory is named after the repository that publishes it, and all
+            // publishing repositories live in this organization.
+            for (const repo of subdirectories(root)) {
+              const entries = subdirectories(path.join(root, repo, 'pr-previews'));
+              if (entries.length === 0) {
+                continue;
+              }
+
+              // A pull request lookup answers 404 both for "no such pull request" and for "no such
+              // repository". Only a readable repository makes that 404 a definitive answer, so a
+              // repository that is gone, renamed or private is reported instead of pruned.
+              let repoReadable = true;
+              try {
+                await github.rest.repos.get({ owner: context.repo.owner, repo });
+              } catch (error) {
+                repoReadable = false;
+                const reason = error.status ?? error.message;
+                core.warning(`Keeping all previews of ${repo}, the repository could not be read (${reason}).`);
+              }
+
+              for (const entry of entries) {
+                const preview = `${repo}/pr-previews/${entry}`;
+                const match = /^pr-(\d+)$/.exec(entry);
+                if (!match) {
+                  core.warning(`Keeping ${preview}, it is not a preview directory.`);
+                  continue;
+                }
+                if (!repoReadable) {
+                  unreadable++;
+                  continue;
+                }
+
+                let pull;
+                try {
+                  const response = await github.rest.pulls.get({
+                    owner: context.repo.owner,
+                    repo,
+                    pull_number: Number(match[1])
+                  });
+                  pull = response.data;
+                } catch (error) {
+                  // Never delete on an inconclusive answer. A token that cannot read the pull
+                  // request would otherwise wipe a live preview.
+                  const reason = error.status ?? error.message;
+                  core.warning(`Keeping ${preview}, ${repo}#${match[1]} could not be read (${reason}).`);
+                  // The repository was readable a moment ago, so a 404 here is a definitive "no
+                  // such pull request". Anything else means the lookup itself is broken, which
+                  // turns this job into a no-op that still reports success.
+                  if (error.status !== 404) {
+                    unreadable++;
+                  }
+                  continue;
+                }
+
+                if (pull.state === 'closed') {
+                  core.info(`${repo}#${match[1]} is closed, removing ${preview}.`);
+                  stale.push(preview);
+                }
+              }
+            }
+
+            // Handed over as a file rather than as a step output so that directory names never
+            // reach the shell through a workflow expression.
+            const list = path.join(process.env.RUNNER_TEMP, 'stale-previews.txt');
+            fs.writeFileSync(list, stale.map(preview => `${preview}\n`).join(''));
+            core.setOutput('list', list);
+            core.setOutput('unreadable', unreadable);
+            core.info(`Found ${stale.length} stale preview(s).`);
+      - name: Remove stale previews
+        env:
+          LIST: ${{ steps.stale.outputs.list }}
+        run: |
+          if [ ! -s "$LIST" ]; then
+            echo "No stale previews to remove."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          while IFS= read -r directory; do
+            git rm -r --quiet -- "$directory"
+          done < "$LIST"
+          git commit -m "Remove previews of closed pull requests"
+          # Deployments land on this branch at any time, so a push can be rejected. Rebasing
+          # replays the removal on top of them, unless a deployment recreated a preview this job
+          # removed. That conflict is reported rather than resolved, because deleting a preview
+          # that was just deployed is exactly what this job must not do.
+          for attempt in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            if [ "$attempt" -eq 3 ]; then
+              break
+            fi
+            echo "Push rejected, rebasing onto previews (attempt $attempt)"
+            if ! git pull --rebase origin previews; then
+              git rebase --abort || true
+              echo "Could not rebase onto previews, a deployment changed a preview being removed" >&2
+              exit 1
+            fi
+          done
+          echo "Could not push after 3 attempts" >&2
+          exit 1
+      # Without a working lookup every preview is kept, so the job would report success while
+      # quietly doing nothing at all. Fail instead, so the broken safety net is visible. Runs even
+      # when the removal failed, because that is when the diagnostic is needed most.
+      - name: Fail on unreadable pull requests
+        if: ${{ !cancelled() && steps.stale.outcome == 'success' && steps.stale.outputs.unreadable != '0' }}
+        env:
+          UNREADABLE: ${{ steps.stale.outputs.unreadable }}
+        run: |
+          echo "::error::$UNREADABLE pull request(s) could not be read, so their previews were kept."
+          exit 1
+
+  squash:
+    name: Squash Branch History
+    needs: prune
+    # The squash does not depend on what the prune did, so it still runs when the prune failed.
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          # Depth 1 would make the checked out commit a shallow boundary, and git reports a
+          # boundary commit as having no parents. The check below would then always see a
+          # single-commit branch and never squash anything. Depth 2 reports parents correctly.
+          fetch-depth: 2
+      - name: Squash previews history
+        run: |
+          head=$(git rev-parse HEAD)
+          if [ -z "$(git log -1 --format=%P)" ]; then
+            echo "previews is already a single commit, nothing to squash."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Keeps the checked out tree and drops its history, so the deployed content is untouched.
+          git checkout --quiet --orphan squashed
+          git commit --quiet -m "Squash previews history"
+          # The server compares `previews` against the commit this job checked out and updates it
+          # in the same operation. A deployment that lands in between is rejected rather than
+          # overwritten, which a plain force-push would do silently.
+          git push --force-with-lease=previews:"$head" origin squashed:previews
