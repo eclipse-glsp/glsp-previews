@@ -6418,9 +6418,46 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
   var require_base_protocol = __commonJS({
     "../../packages/common/protocol/lib/action-protocol/base-protocol.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.CompoundOperation = exports.Operation = exports.RejectAction = exports.ResponseAction = exports.RequestAction = exports.ActionMessage = exports.Action = void 0;
-      var sprotty = require_actions();
+      var sprotty = __importStar(require_actions());
       var type_util_1 = require_type_util();
       var Action2;
       (function(Action3) {
@@ -11677,9 +11714,46 @@ ${JSON.stringify(message, null, 4)}`);
   var require_event = __commonJS({
     "../../packages/common/protocol/lib/utils/event.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Emitter = exports.Event = void 0;
-      var jsonrpc = require_main();
+      var jsonrpc = __importStar(require_main());
       var Event;
       (function(Event2) {
         function once(event, listener, thisArgs, disposables) {
@@ -12882,6 +12956,9 @@ ${JSON.stringify(message, null, 4)}`);
       var vscode_jsonrpc_1 = require_main();
       function wrap(socket) {
         return {
+          // TypeScript 7's DOM lib narrows `WebSocket.send` to `string | Blob | BufferSource`, which rejects the
+          // wider `ArrayBufferLike` of the wrapper interface. Every value a GLSP writer hands in is a valid
+          // `BufferSource` at runtime, so narrow here instead of changing the public `WebSocketWrapper` signature.
           send: (content) => socket.send(content),
           onMessage: (cb) => socket.onmessage = (event) => cb(event.data),
           onClose: (cb) => socket.onclose = (event) => cb(event.code, event.reason),
@@ -14944,10 +15021,7 @@ ${JSON.stringify(message, null, 4)}`);
         (0, inversify_1.injectable)(),
         __param(0, (0, inversify_1.inject)(service_identifiers_1.InjectionContainer)),
         __param(1, (0, inversify_1.inject)(service_identifiers_1.DiagramModules)),
-        __metadata("design:paramtypes", [
-          inversify_1.Container,
-          Map
-        ])
+        __metadata("design:paramtypes", [inversify_1.Container, Map])
       ], DefaultGlobalActionProvider);
     }
   });
@@ -15812,9 +15886,46 @@ ${JSON.stringify(message, null, 4)}`);
   var require_recording_command = __commonJS({
     "../../packages/server/server/lib/common/command/recording-command.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.GModelRecordingCommand = exports.AbstractRecordingCommand = void 0;
-      var jsonPatch = require_fast_json_patch();
+      var jsonPatch = __importStar(require_fast_json_patch());
       var AbstractRecordingCommand = class {
         async execute() {
           var _a4;
@@ -18024,12 +18135,7 @@ ${JSON.stringify(message, null, 4)}`);
         __param(2, (0, inversify_1.optional)()),
         __param(3, (0, inversify_1.inject)(tool_palette_item_provider_1.ToolPaletteItemProvider)),
         __param(3, (0, inversify_1.optional)()),
-        __metadata("design:paramtypes", [
-          Array,
-          context_menu_item_provider_1.ContextMenuItemProvider,
-          command_palette_action_provider_1.CommandPaletteActionProvider,
-          tool_palette_item_provider_1.ToolPaletteItemProvider
-        ])
+        __metadata("design:paramtypes", [Array, context_menu_item_provider_1.ContextMenuItemProvider, command_palette_action_provider_1.CommandPaletteActionProvider, tool_palette_item_provider_1.ToolPaletteItemProvider])
       ], ContextActionsProviderRegistry);
     }
   });
@@ -21813,16 +21919,53 @@ ${JSON.stringify(message, null, 4)}`);
   var require_worker_server_launcher = __commonJS({
     "../../packages/server/server/lib/browser/launch/worker-server-launcher.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.WorkerServerLauncher = exports.WORKER_START_UP_COMPLETE_MSG = void 0;
       var inversify_1 = require_cjs4();
-      var jsonrpc = require_browser();
+      var jsonrpc = __importStar(require_browser());
       var common_1 = require_common();
       exports.WORKER_START_UP_COMPLETE_MSG = "[GLSP-Server]:Startup completed.";
       var WorkerServerLauncher2 = class WorkerServerLauncher extends common_1.JsonRpcGLSPServerLauncher {
@@ -114380,11 +114523,14 @@ ${JSON.stringify(message, null, 4)}`);
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
+      var __importDefault = exports && exports.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      };
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.ElkLayoutModule = void 0;
       exports.configureELKLayoutModule = configureELKLayoutModule2;
       var server_1 = require_browser2();
-      var elk_bundled_1 = require_elk_bundled();
+      var elk_bundled_1 = __importDefault(require_elk_bundled());
       var inversify_1 = require_cjs4();
       var element_filter_1 = require_element_filter();
       var glsp_elk_layout_engine_1 = require_glsp_elk_layout_engine();
@@ -131981,9 +132127,46 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
   var require_mcp_input_schemas = __commonJS({
     "../../packages/server/server-mcp/lib/common/server/mcp-input-schemas.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.dispatchedCommands = exports.ElementIdentitySchema = exports.McpDiagramScopedInputSchema = exports.position = exports.elementIdsAllowingEmpty = exports.elementIds = exports.elementId = exports.sessionId = void 0;
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       exports.sessionId = z2.string().describe("GLSP client session id (open diagram).");
       exports.elementId = z2.string();
       exports.elementIds = z2.array(z2.string()).min(1);
@@ -132305,17 +132488,54 @@ Set the \`cycles\` parameter to \`"ref"\` to resolve cyclical schemas with defs.
   var require_count_elements_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/count-elements-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var CountElementsMcpToolHandler_1;
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.CountElementsMcpToolHandler = exports.CountElementsOutputSchema = exports.CountElementsInputSchema = void 0;
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       exports.CountElementsInputSchema = mcp_input_schemas_1.McpDiagramScopedInputSchema;
@@ -132557,12 +132777,49 @@ ${rows}`;
   var require_diagram_model_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/diagram-model-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -132570,7 +132827,7 @@ ${rows}`;
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.DiagramModelMcpToolHandler = exports.DiagramModelOutputSchema = exports.DiagramModelElementSchema = exports.DiagramModelInputSchema = void 0;
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_model_serializer_1 = require_mcp_model_serializer();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -132681,12 +132938,49 @@ ${rows}`;
   var require_element_types_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/element-types-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -132695,7 +132989,7 @@ ${rows}`;
       exports.ElementTypesMcpToolHandler = exports.ElementTypesOutputSchema = exports.ElementTypeEntrySchema = exports.ElementTypesInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       var element_types_provider_1 = require_element_types_provider();
@@ -132806,12 +133100,49 @@ ${rows}`;
   var require_query_elements_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/query-elements-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -132819,7 +133150,7 @@ ${rows}`;
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.QueryElementsMcpToolHandler = exports.QueryElementsOutputSchema = exports.DiagramElementSchema = exports.QueryElementMatchSchema = exports.QueryElementsInputSchema = void 0;
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_model_serializer_1 = require_mcp_model_serializer();
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
@@ -132935,12 +133266,49 @@ ${rows}${tail}`;
   var require_set_selection_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/set-selection-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -132949,7 +133317,7 @@ ${rows}${tail}`;
       exports.SetSelectionMcpToolHandler = exports.SetSelectionOutputSchema = exports.SetSelectionInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       exports.SetSelectionInputSchema = mcp_input_schemas_1.McpDiagramScopedInputSchema.extend({
@@ -133014,12 +133382,49 @@ ${rows}${tail}`;
   var require_set_view_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/set-view-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -133028,7 +133433,7 @@ ${rows}${tail}`;
       exports.SetViewMcpToolHandler = exports.SetViewOutputSchema = exports.SetViewInputSchema = exports.VIEWPORT_ACTIONS = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -133122,12 +133527,49 @@ ${rows}${tail}`;
   var require_describe_diagram_mcp_prompt_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/prompts/handlers/describe-diagram-mcp-prompt-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -133136,7 +133578,7 @@ ${rows}${tail}`;
       exports.DescribeDiagramMcpPromptHandler = exports.DescribeDiagramArgsSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_prompt_handler_1 = require_mcp_prompt_handler();
       var count_elements_mcp_tool_handler_1 = require_count_elements_mcp_tool_handler();
@@ -133195,12 +133637,49 @@ Keep the description concise and skim-friendly. When mentioning an element, pref
   var require_validate_diagram_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/validate-diagram-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -133209,7 +133688,7 @@ Keep the description concise and skim-friendly. When mentioning an element, pref
       exports.ValidateDiagramMcpToolHandler = exports.ValidateDiagramOutputSchema = exports.ValidateDiagramInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -133277,12 +133756,49 @@ Keep the description concise and skim-friendly. When mentioning an element, pref
   var require_suggest_improvements_mcp_prompt_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/prompts/handlers/suggest-improvements-mcp-prompt-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -133291,7 +133807,7 @@ Keep the description concise and skim-friendly. When mentioning an element, pref
       exports.SuggestImprovementsMcpPromptHandler = exports.SuggestImprovementsArgsSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_prompt_handler_1 = require_mcp_prompt_handler();
       var diagram_model_mcp_tool_handler_1 = require_diagram_model_mcp_tool_handler();
@@ -153097,21 +153613,17 @@ data:
         version: "2.9.0-next",
         description: "Model Context Protocol (MCP) server for the GLSP TypeScript server \u2014 runs on Node, browser, and Fetch-API runtimes",
         keywords: [
-          "eclipse",
-          "graphics",
           "diagram",
-          "modeling",
-          "visualization",
-          "glsp",
           "diagram editor",
-          "mcp"
+          "eclipse",
+          "glsp",
+          "graphics",
+          "mcp",
+          "modeling",
+          "visualization"
         ],
         homepage: "https://www.eclipse.org/glsp/",
         bugs: "https://github.com/eclipse-glsp/glsp/issues",
-        repository: {
-          type: "git",
-          url: "https://github.com/eclipse-glsp/glsp-core.git"
-        },
         license: "(EPL-2.0 OR GPL-2.0 WITH Classpath-exception-2.0)",
         author: {
           name: "Eclipse GLSP"
@@ -153123,11 +153635,10 @@ data:
             url: "https://projects.eclipse.org/projects/ecd.glsp"
           }
         ],
-        main: "lib/node/index",
-        browser: {
-          "lib/node/index": "./lib/browser/index"
+        repository: {
+          type: "git",
+          url: "https://github.com/eclipse-glsp/glsp-core.git"
         },
-        types: "lib/common/index",
         files: [
           "lib",
           "src",
@@ -153140,11 +153651,18 @@ data:
           "!**/*.spec.*",
           "!**/test/**"
         ],
+        main: "lib/node/index",
+        browser: {
+          "lib/node/index": "./lib/browser/index"
+        },
+        types: "lib/common/index",
+        publishConfig: {
+          access: "public"
+        },
         scripts: {
           build: "tsc -b",
           clean: "rimraf lib *.tsbuildinfo coverage",
           "generate:index": "glsp generateIndex src/browser src/common src/node -f -s",
-          lint: "eslint --ext .ts,.tsx ./src",
           prepublishOnly: "pnpm build"
         },
         dependencies: {
@@ -153156,9 +153674,6 @@ data:
         peerDependencies: {
           inversify: "^6.1.3",
           "reflect-metadata": "^0.2.2"
-        },
-        publishConfig: {
-          access: "public"
         }
       };
     }
@@ -154860,12 +155375,49 @@ data:
   var require_session_info_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/session-info-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -154874,7 +155426,7 @@ data:
       exports.SessionInfoMcpToolHandler = exports.SessionInfoOutputSchema = exports.SessionInfoRowSchema = exports.SessionInfoInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       exports.SessionInfoInputSchema = z2.object({
@@ -155219,12 +155771,49 @@ GLSP MCP server. You have to adhere to the following principles:
   var require_diagram_png_mcp_resource_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/resources/handlers/diagram-png-mcp-resource-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -155233,7 +155822,7 @@ GLSP MCP server. You have to adhere to the following principles:
       exports.DiagramPngMcpResourceHandler = exports.DiagramPngInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_progress_reporter_1 = require_mcp_progress_reporter();
@@ -155341,12 +155930,49 @@ GLSP MCP server. You have to adhere to the following principles:
   var require_diagram_svg_mcp_resource_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/resources/handlers/diagram-svg-mcp-resource-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -155355,7 +155981,7 @@ GLSP MCP server. You have to adhere to the following principles:
       exports.DiagramSvgMcpResourceHandler = exports.DiagramSvgInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_progress_reporter_1 = require_mcp_progress_reporter();
@@ -155425,12 +156051,49 @@ ${notices.map((notice) => `- ${notice}`).join("\n")}`;
   var require_create_edges_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/create-edges-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -155439,7 +156102,7 @@ ${notices.map((notice) => `- ${notice}`).join("\n")}`;
       exports.CreateEdgesMcpToolHandler = exports.CreateEdgesOutputSchema = exports.CreateEdgesValidationResultSchema = exports.CreateEdgesInputSchema = exports.CreateEdgeSpecSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       var mcp_util_1 = require_mcp_util();
@@ -155593,18 +156256,55 @@ ${successListStr}${(0, mcp_util_1.formatNoticeList)("errors", errors)}`, { creat
   var require_create_nodes_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/create-nodes-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var CreateNodesMcpToolHandler_1;
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.CreateNodesMcpToolHandler = exports.CreateNodesOutputSchema = exports.CreateNodesInputSchema = exports.CreateNodeSpecSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       var mcp_util_1 = require_mcp_util();
@@ -155688,18 +156388,55 @@ ${successListStr}` + (0, mcp_util_1.formatNoticeList)("errors", errors) + (0, mc
   var require_delete_elements_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/delete-elements-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var DeleteElementsMcpToolHandler_1;
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.DeleteElementsMcpToolHandler = exports.DeleteElementsOutputSchema = exports.DeleteElementsInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       exports.DeleteElementsInputSchema = mcp_input_schemas_1.McpDiagramScopedInputSchema.extend({ elementIds: mcp_input_schemas_1.elementIds });
@@ -155743,12 +156480,49 @@ ${successListStr}` + (0, mcp_util_1.formatNoticeList)("errors", errors) + (0, mc
   var require_get_selection_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/get-selection-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -155757,7 +156531,7 @@ ${successListStr}` + (0, mcp_util_1.formatNoticeList)("errors", errors) + (0, mc
       exports.GetSelectionMcpToolHandler = exports.GetSelectionOutputSchema = exports.GetSelectionInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -155799,12 +156573,49 @@ ${selectedIdsStr}`, { selectedElementIds });
   var require_layout_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/layout-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -155813,7 +156624,7 @@ ${selectedIdsStr}`, { selectedElementIds });
       exports.LayoutMcpToolHandler = exports.LayoutOutputSchema = exports.LayoutInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
       exports.LayoutInputSchema = mcp_input_schemas_1.McpDiagramScopedInputSchema;
@@ -155860,18 +156671,55 @@ ${selectedIdsStr}`, { selectedElementIds });
   var require_modify_edges_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/modify-edges-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var ModifyEdgesMcpToolHandler_1;
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.ModifyEdgesMcpToolHandler = exports.ModifyEdgesOutputSchema = exports.ModifyEdgesInputSchema = exports.ModifyEdgeSpecSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -155965,18 +156813,55 @@ ${selectedIdsStr}`, { selectedElementIds });
   var require_modify_nodes_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/modify-nodes-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var ModifyNodesMcpToolHandler_1;
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.ModifyNodesMcpToolHandler = exports.ModifyNodesOutputSchema = exports.ModifyNodesInputSchema = exports.ModifyNodeSpecSchema = exports.NodeSizeSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -156077,12 +156962,49 @@ ${selectedIdsStr}`, { selectedElementIds });
   var require_redo_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/redo-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -156091,7 +157013,7 @@ ${selectedIdsStr}`, { selectedElementIds });
       exports.RedoMcpToolHandler = exports.RedoOutputSchema = exports.RedoInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -156139,12 +157061,49 @@ ${selectedIdsStr}`, { selectedElementIds });
   var require_save_model_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/save-model-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -156153,7 +157112,7 @@ ${selectedIdsStr}`, { selectedElementIds });
       exports.SaveModelMcpToolHandler = exports.SaveModelOutputSchema = exports.SaveModelInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_logger_1 = require_mcp_logger();
       var mcp_tool_handler_1 = require_mcp_tool_handler();
@@ -156210,12 +157169,49 @@ ${selectedIdsStr}`, { selectedElementIds });
   var require_undo_mcp_tool_handler = __commonJS({
     "../../packages/server/server-mcp/lib/common/tools/handlers/undo-mcp-tool-handler.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        var desc = Object.getOwnPropertyDescriptor(m3, k3);
+        if (!desc || ("get" in desc ? !m3.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m3[k3];
+          } };
+        }
+        Object.defineProperty(o3, k22, desc);
+      }) : (function(o3, m3, k3, k22) {
+        if (k22 === void 0) k22 = k3;
+        o3[k22] = m3[k3];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o3, v8) {
+        Object.defineProperty(o3, "default", { enumerable: true, value: v8 });
+      }) : function(o3, v8) {
+        o3["default"] = v8;
+      });
       var __decorate = exports && exports.__decorate || function(decorators, target, key, desc) {
         var c3 = arguments.length, r3 = c3 < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d3;
         if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r3 = Reflect.decorate(decorators, target, key, desc);
         else for (var i2 = decorators.length - 1; i2 >= 0; i2--) if (d3 = decorators[i2]) r3 = (c3 < 3 ? d3(r3) : c3 > 3 ? d3(target, key, r3) : d3(target, key)) || r3;
         return c3 > 3 && r3 && Object.defineProperty(target, key, r3), r3;
       };
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o3) {
+          ownKeys = Object.getOwnPropertyNames || function(o4) {
+            var ar = [];
+            for (var k3 in o4) if (Object.prototype.hasOwnProperty.call(o4, k3)) ar[ar.length] = k3;
+            return ar;
+          };
+          return ownKeys(o3);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k3 = ownKeys(mod), i2 = 0; i2 < k3.length; i2++) if (k3[i2] !== "default") __createBinding(result, mod, k3[i2]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       var __metadata = exports && exports.__metadata || function(k3, v8) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k3, v8);
       };
@@ -156224,7 +157220,7 @@ ${selectedIdsStr}`, { selectedElementIds });
       exports.UndoMcpToolHandler = exports.UndoOutputSchema = exports.UndoInputSchema = void 0;
       var server_1 = require_browser2();
       var inversify_1 = require_cjs4();
-      var z2 = require_v4();
+      var z2 = __importStar(require_v4());
       var mcp_handler_shared_1 = require_mcp_handler_shared();
       var mcp_input_schemas_1 = require_mcp_input_schemas();
       var mcp_tool_handler_1 = require_mcp_tool_handler();

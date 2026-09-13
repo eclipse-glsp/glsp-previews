@@ -27388,9 +27388,46 @@ ${JSON.stringify(message, null, 4)}`);
   var require_event = __commonJS({
     "../../packages/common/protocol/lib/utils/event.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o2, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o2, k2, desc);
+      }) : (function(o2, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        o2[k2] = m[k];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o2, v8) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v8 });
+      }) : function(o2, v8) {
+        o2["default"] = v8;
+      });
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o2) {
+          ownKeys = Object.getOwnPropertyNames || function(o3) {
+            var ar = [];
+            for (var k in o3) if (Object.prototype.hasOwnProperty.call(o3, k)) ar[ar.length] = k;
+            return ar;
+          };
+          return ownKeys(o2);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.Emitter = exports.Event = void 0;
-      var jsonrpc = require_main();
+      var jsonrpc = __importStar(require_main());
       var Event2;
       (function(Event3) {
         function once(event, listener, thisArgs, disposables) {
@@ -28425,22 +28462,25 @@ ${JSON.stringify(message, null, 4)}`);
   var require_feature_modules = __commonJS({
     "../../packages/client/glsp-sprotty/lib/feature-modules.js"(exports) {
       "use strict";
+      var __importDefault = exports && exports.__importDefault || function(mod) {
+        return mod && mod.__esModule ? mod : { "default": mod };
+      };
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.sprottyDefaultModule = exports.edgeJunctionModule = exports.updateModule = exports.openModule = exports.moveModule = exports.modelSourceModule = exports.fadeModule = exports.expandModule = exports.edgeLayoutModule = exports.edgeIntersectionModule = exports.edgeEditModule = exports.buttonModule = void 0;
       var di_1 = require_di();
-      var di_config_1 = require_di_config();
+      var di_config_1 = __importDefault(require_di_config());
       exports.sprottyDefaultModule = di_config_1.default;
-      var di_config_2 = require_di_config5();
-      var di_config_3 = require_di_config9();
-      var di_config_4 = require_di_config10();
-      var di_config_5 = require_di_config2();
+      var di_config_2 = __importDefault(require_di_config5());
+      var di_config_3 = __importDefault(require_di_config9());
+      var di_config_4 = __importDefault(require_di_config10());
+      var di_config_5 = __importDefault(require_di_config2());
       var di_config_6 = require_di_config3();
-      var di_config_7 = require_di_config11();
-      var di_config_8 = require_di_config13();
-      var di_config_9 = require_di_config15();
-      var di_config_10 = require_di_config16();
-      var di_config_11 = require_di_config20();
-      var di_config_12 = require_di_config23();
+      var di_config_7 = __importDefault(require_di_config11());
+      var di_config_8 = __importDefault(require_di_config13());
+      var di_config_9 = __importDefault(require_di_config15());
+      var di_config_10 = __importDefault(require_di_config16());
+      var di_config_11 = __importDefault(require_di_config20());
+      var di_config_12 = __importDefault(require_di_config23());
       exports.buttonModule = new di_1.FeatureModule(di_config_2.default.registry, { featureId: /* @__PURE__ */ Symbol("button") });
       exports.edgeEditModule = new di_1.FeatureModule(di_config_6.edgeEditModule.registry, { featureId: /* @__PURE__ */ Symbol("edgeEdit") });
       exports.edgeIntersectionModule = new di_1.FeatureModule(di_config_3.default.registry, { featureId: /* @__PURE__ */ Symbol("edgeIntersection") });
@@ -28542,9 +28582,46 @@ ${JSON.stringify(message, null, 4)}`);
   var require_base_protocol = __commonJS({
     "../../packages/common/protocol/lib/action-protocol/base-protocol.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o2, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o2, k2, desc);
+      }) : (function(o2, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        o2[k2] = m[k];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o2, v8) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v8 });
+      }) : function(o2, v8) {
+        o2["default"] = v8;
+      });
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o2) {
+          ownKeys = Object.getOwnPropertyNames || function(o3) {
+            var ar = [];
+            for (var k in o3) if (Object.prototype.hasOwnProperty.call(o3, k)) ar[ar.length] = k;
+            return ar;
+          };
+          return ownKeys(o2);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.CompoundOperation = exports.Operation = exports.RejectAction = exports.ResponseAction = exports.RequestAction = exports.ActionMessage = exports.Action = void 0;
-      var sprotty = require_actions();
+      var sprotty = __importStar(require_actions());
       var type_util_1 = require_type_util();
       var Action2;
       (function(Action3) {
@@ -30280,6 +30357,9 @@ ${JSON.stringify(message, null, 4)}`);
       var vscode_jsonrpc_1 = require_main();
       function wrap(socket) {
         return {
+          // TypeScript 7's DOM lib narrows `WebSocket.send` to `string | Blob | BufferSource`, which rejects the
+          // wider `ArrayBufferLike` of the wrapper interface. Every value a GLSP writer hands in is a valid
+          // `BufferSource` at runtime, so narrow here instead of changing the public `WebSocketWrapper` signature.
           send: (content) => socket.send(content),
           onMessage: (cb) => socket.onmessage = (event) => cb(event.data),
           onClose: (cb) => socket.onclose = (event) => cb(event.code, event.reason),
@@ -32973,11 +33053,48 @@ ${JSON.stringify(message, null, 4)}`);
   var require_messages3 = __commonJS({
     "../../packages/client/client/lib/base/messages.js"(exports) {
       "use strict";
+      var __createBinding = exports && exports.__createBinding || (Object.create ? (function(o2, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        var desc = Object.getOwnPropertyDescriptor(m, k);
+        if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+          desc = { enumerable: true, get: function() {
+            return m[k];
+          } };
+        }
+        Object.defineProperty(o2, k2, desc);
+      }) : (function(o2, m, k, k2) {
+        if (k2 === void 0) k2 = k;
+        o2[k2] = m[k];
+      }));
+      var __setModuleDefault = exports && exports.__setModuleDefault || (Object.create ? (function(o2, v8) {
+        Object.defineProperty(o2, "default", { enumerable: true, value: v8 });
+      }) : function(o2, v8) {
+        o2["default"] = v8;
+      });
+      var __importStar = exports && exports.__importStar || /* @__PURE__ */ (function() {
+        var ownKeys = function(o2) {
+          ownKeys = Object.getOwnPropertyNames || function(o3) {
+            var ar = [];
+            for (var k in o3) if (Object.prototype.hasOwnProperty.call(o3, k)) ar[ar.length] = k;
+            return ar;
+          };
+          return ownKeys(o2);
+        };
+        return function(mod) {
+          if (mod && mod.__esModule) return mod;
+          var result = {};
+          if (mod != null) {
+            for (var k = ownKeys(mod), i = 0; i < k.length; i++) if (k[i] !== "default") __createBinding(result, mod, k[i]);
+          }
+          __setModuleDefault(result, mod);
+          return result;
+        };
+      })();
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.updateMessages = exports.onMessagesUpdated = exports.messages = void 0;
       exports.repeatOnMessagesUpdated = repeatOnMessagesUpdated;
       var sprotty_1 = require_lib4();
-      var rawMessages = require_messages2();
+      var rawMessages = __importStar(require_messages2());
       var deepUpdate = (target, updates) => {
         for (const key in updates) {
           if (!Object.prototype.hasOwnProperty.call(updates, key) || key === "__proto__" || key === "constructor") {
@@ -37162,9 +37279,7 @@ ${JSON.stringify(message, null, 4)}`);
             minHeight: 0,
             hGrab: false,
             vGrab: false,
-            // eslint-disable-next-line no-null/no-null
             prefHeight: null,
-            // eslint-disable-next-line no-null/no-null
             prefWidth: null
           };
         }
@@ -37519,9 +37634,7 @@ ${JSON.stringify(message, null, 4)}`);
             minHeight: 0,
             hGrab: false,
             vGrab: false,
-            // eslint-disable-next-line no-null/no-null
             prefHeight: null,
-            // eslint-disable-next-line no-null/no-null
             prefWidth: null
           };
         }
@@ -41240,7 +41353,7 @@ ${JSON.stringify(message, null, 4)}`);
           return elementIds !== void 0 && elementIds.length > 0;
         }
         containsArguments(args) {
-          return args !== void 0 && args !== void 0 && Object.keys(args).length > 0;
+          return args !== void 0 && Object.keys(args).length > 0;
         }
         navigateTo(target) {
           const elementIds = target.elementIds;
@@ -48242,11 +48355,7 @@ ${JSON.stringify(message, null, 4)}`);
         }
         parentWithAriaLabel(target) {
           let current = target.parentElement;
-          while (
-            // eslint-disable-next-line no-null/no-null
-            current !== null && current !== document.body && current !== document.getElementById(this.viewerOptions.baseDiv) && // eslint-disable-next-line no-null/no-null
-            current.ariaLabel === null
-          ) {
+          while (current !== null && current !== document.body && current !== document.getElementById(this.viewerOptions.baseDiv) && current.ariaLabel === null) {
             current = current.parentElement;
           }
           if (current === document.getElementById(this.viewerOptions.baseDiv) || current === document.body) {
