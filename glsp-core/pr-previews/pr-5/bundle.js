@@ -28405,13 +28405,20 @@ ${JSON.stringify(message, null, 4)}`);
         initialize(clientConnection, enableLogging = false) {
           this.clientConnection = clientConnection;
           this.enableLogging = enableLogging;
+          const clearConnection = () => {
+            this.clientConnection = void 0;
+          };
+          clientConnection.onClose(clearConnection);
+          clientConnection.onDispose(clearConnection);
         }
         process(message) {
-          var _a3;
+          if (!this.clientConnection) {
+            return;
+          }
           if (this.enableLogging) {
             console.log(`Send action '${message.action.kind}' to client '${message.clientId}'`);
           }
-          (_a3 = this.clientConnection) == null ? void 0 : _a3.sendNotification(glsp_jsonrpc_client_1.JsonrpcGLSPClient.ActionMessageNotification, message);
+          this.clientConnection.sendNotification(glsp_jsonrpc_client_1.JsonrpcGLSPClient.ActionMessageNotification, message).catch(() => void 0);
         }
       };
       exports.JsonrpcClientProxy = JsonrpcClientProxy;
