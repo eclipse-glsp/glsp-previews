@@ -153644,7 +153644,8 @@ data:
         ],
         repository: {
           type: "git",
-          url: "https://github.com/eclipse-glsp/glsp-core.git"
+          url: "https://github.com/eclipse-glsp/glsp-core.git",
+          directory: "packages/server/server-mcp"
         },
         files: [
           "lib",
