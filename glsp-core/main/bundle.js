@@ -31953,6 +31953,7 @@ ${JSON.stringify(message, null, 4)}`);
         /** @deprecated Use {@link TYPES.IGModelRootListener} instead */
         ISModelRootListener: IGModelRootListener,
         IGModelRootListener,
+        /** @deprecated Use {@link TYPES.IContextMenuItemProvider} for context menu item providers. */
         IContextMenuProvider: /* @__PURE__ */ Symbol("IContextMenuProvider"),
         ICopyPasteHandler: /* @__PURE__ */ Symbol("ICopyPasteHandler"),
         ITool: /* @__PURE__ */ Symbol("ITool"),
@@ -47149,7 +47150,7 @@ ${JSON.stringify(message, null, 4)}`);
         (0, sprotty_1.configureActionHandler)({ bind, isBound }, marker_navigator_1.NavigateToMarkerAction.KIND, marker_navigator_1.NavigateToMarkerActionHandler);
       }, { featureId: /* @__PURE__ */ Symbol("markerNavigator") });
       exports.standaloneMarkerNavigatorModule = new sprotty_1.FeatureModule((bind) => {
-        (0, sprotty_1.bindAsService)(bind, sprotty_1.TYPES.IContextMenuProvider, marker_navigator_1.MarkerNavigatorContextMenuItemProvider);
+        (0, sprotty_1.bindAsService)(bind, sprotty_1.TYPES.IContextMenuItemProvider, marker_navigator_1.MarkerNavigatorContextMenuItemProvider);
         (0, sprotty_1.bindAsService)(bind, sprotty_1.TYPES.KeyListener, marker_navigator_1.MarkerNavigatorKeyListener);
       }, { featureId: /* @__PURE__ */ Symbol("standaloneMarkerNavigator"), requires: exports.markerNavigatorModule });
     }
