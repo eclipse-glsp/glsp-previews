@@ -14130,7 +14130,7 @@ ${JSON.stringify(message, null, 4)}`);
       };
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.MultiRegistry = exports.Registry = void 0;
-      var array_util_1 = require_array_util();
+      var protocol_1 = require_lib2();
       var inversify_1 = require_cjs4();
       var logger_1 = require_logger();
       var Registry = class Registry {
@@ -14220,7 +14220,7 @@ ${JSON.stringify(message, null, 4)}`);
         deregister(key, element) {
           const instances = this.elements.get(key);
           if (instances) {
-            (0, array_util_1.remove)(instances, element);
+            (0, protocol_1.remove)(instances, element);
             return true;
           }
           return false;
