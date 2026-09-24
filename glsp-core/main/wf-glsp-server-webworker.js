@@ -7316,7 +7316,7 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
       (function(RequestCheckEdgeAction2) {
         RequestCheckEdgeAction2.KIND = "requestCheckEdge";
         function is(object) {
-          return base_protocol_1.Action.hasKind(object, RequestCheckEdgeAction2.KIND) && (0, type_util_1.hasStringProp)(object, "edgeType") && (0, type_util_1.hasStringProp)(object, "sourceElementId") && (0, type_util_1.hasStringProp)(object, "targetElementId", true);
+          return base_protocol_1.RequestAction.hasKind(object, RequestCheckEdgeAction2.KIND) && (0, type_util_1.hasStringProp)(object, "edgeType") && (0, type_util_1.hasStringProp)(object, "sourceElementId") && (0, type_util_1.hasStringProp)(object, "targetElementId", true);
         }
         RequestCheckEdgeAction2.is = is;
         function create(options) {
@@ -7582,7 +7582,7 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
       (function(LayoutOperation2) {
         LayoutOperation2.KIND = "layout";
         function is(object) {
-          return base_protocol_1.Action.hasKind(object, LayoutOperation2.KIND);
+          return base_protocol_1.Operation.hasKind(object, LayoutOperation2.KIND);
         }
         LayoutOperation2.is = is;
         function create(elementIds, options = {}) {
@@ -7919,7 +7919,7 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
       (function(CenterAction2) {
         CenterAction2.KIND = "center";
         function is(object) {
-          return base_protocol_1.Action.hasKind(object, CenterAction2.KIND) && (0, type_util_1.hasBooleanProp)(object, "animate") && (0, type_util_1.hasBooleanProp)(object, "retainZoom");
+          return base_protocol_1.Action.hasKind(object, CenterAction2.KIND) && (0, type_util_1.hasArrayProp)(object, "elementIds") && (0, type_util_1.hasBooleanProp)(object, "animate") && (0, type_util_1.hasBooleanProp)(object, "retainZoom");
         }
         CenterAction2.is = is;
         function create(elementIds, options = {}) {
@@ -7970,7 +7970,7 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
       (function(MoveViewportAction2) {
         MoveViewportAction2.KIND = "moveViewport";
         function is(object) {
-          return base_protocol_1.Action.hasKind(object, MoveViewportAction2.KIND);
+          return base_protocol_1.Action.hasKind(object, MoveViewportAction2.KIND) && (0, type_util_1.hasNumberProp)(object, "moveX") && (0, type_util_1.hasNumberProp)(object, "moveY");
         }
         MoveViewportAction2.is = is;
         function create(options) {
