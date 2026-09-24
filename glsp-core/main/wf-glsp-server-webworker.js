@@ -14907,7 +14907,9 @@ ${JSON.stringify(message, null, 4)}`);
       Object.defineProperty(exports, "__esModule", { value: true });
       var inversify_1 = require_cjs4();
       var base_jsonrpc_glsp_client_1 = require_base_jsonrpc_glsp_client();
-      (0, inversify_1.decorate)((0, inversify_1.injectable)(), base_jsonrpc_glsp_client_1.JsonrpcClientProxy);
+      if (!Reflect.hasOwnMetadata(inversify_1.METADATA_KEY.PARAM_TYPES, base_jsonrpc_glsp_client_1.JsonrpcClientProxy)) {
+        (0, inversify_1.decorate)((0, inversify_1.injectable)(), base_jsonrpc_glsp_client_1.JsonrpcClientProxy);
+      }
     }
   });
 
