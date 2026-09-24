@@ -23826,6 +23826,54 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
     }
   });
 
+  // ../../packages/client/glsp-sprotty/lib/animation-override.js
+  var require_animation_override = __commonJS({
+    "../../packages/client/glsp-sprotty/lib/animation-override.js"(exports) {
+      "use strict";
+      Object.defineProperty(exports, "__esModule", { value: true });
+      var sprotty_1 = require_lib2();
+      var FinalFrameSafeAnimation = class extends sprotty_1.Animation {
+        start() {
+          this.stopped = false;
+          return new Promise((resolve) => {
+            let start = void 0;
+            let frames = 0;
+            const lambda = (time = 0) => {
+              frames++;
+              let dtime;
+              if (start === void 0) {
+                start = time;
+                dtime = 0;
+              } else {
+                dtime = time - start;
+              }
+              const t3 = Math.min(1, dtime / this.context.duration);
+              const eased = this.ease(t3);
+              const current = this.tween(eased, this.context);
+              this.context.modelChanged.update(current);
+              if (t3 === 1 || eased === 1) {
+                this.context.logger.log(this, frames * 1e3 / this.context.duration + " fps");
+                resolve(current);
+              } else if (this.stopped) {
+                this.context.logger.log(this, "Animation stopped at " + t3 * 100 + "%");
+                resolve(current);
+              } else {
+                this.context.syncer.onNextFrame(lambda);
+              }
+            };
+            if (this.context.syncer.isAvailable()) {
+              this.context.syncer.onNextFrame(lambda);
+            } else {
+              const finalModel = this.tween(1, this.context);
+              resolve(finalModel);
+            }
+          });
+        }
+      };
+      sprotty_1.Animation.prototype.start = FinalFrameSafeAnimation.prototype.start;
+    }
+  });
+
   // ../../packages/client/glsp-sprotty/lib/api-override.js
   var require_api_override = __commonJS({
     "../../packages/client/glsp-sprotty/lib/api-override.js"(exports) {
@@ -31950,6 +31998,7 @@ ${JSON.stringify(message, null, 4)}`);
       };
       Object.defineProperty(exports, "__esModule", { value: true });
       __exportStar(require_action_handler_override(), exports);
+      __exportStar(require_animation_override(), exports);
       __exportStar(require_api_override(), exports);
       __exportStar(require_feature_modules(), exports);
       __exportStar(require_layout_override(), exports);
