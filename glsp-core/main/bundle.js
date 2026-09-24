@@ -6524,9 +6524,9 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.almostEquals = exports.toRadians = exports.toDegrees = exports.Bounds = exports.isBounds = exports.Dimension = exports.centerOfLine = exports.angleBetweenPoints = exports.angleOfPoint = exports.Point = void 0;
       var object_1 = require_object();
-      var Point2;
-      (function(Point3) {
-        Point3.ORIGIN = Object.freeze({
+      var Point;
+      (function(Point2) {
+        Point2.ORIGIN = Object.freeze({
           x: 0,
           y: 0
         });
@@ -6536,66 +6536,66 @@ ${ERROR_MSGS.TRYING_TO_RESOLVE_BINDINGS((0, serialization_1.getServiceIdentifier
             y: p1.y + p22.y
           };
         }
-        Point3.add = add;
+        Point2.add = add;
         function subtract(p1, p22) {
           return {
             x: p1.x - p22.x,
             y: p1.y - p22.y
           };
         }
-        Point3.subtract = subtract;
+        Point2.subtract = subtract;
         function equals(point1, point2) {
           return point1.x === point2.x && point1.y === point2.y;
         }
-        Point3.equals = equals;
+        Point2.equals = equals;
         function shiftTowards(point, refPoint, distance) {
           const diff = subtract(refPoint, point);
           const normalized = normalize(diff);
           const shift = { x: normalized.x * distance, y: normalized.y * distance };
           return add(point, shift);
         }
-        Point3.shiftTowards = shiftTowards;
+        Point2.shiftTowards = shiftTowards;
         function normalize(point) {
           const mag = magnitude(point);
           if (mag === 0 || mag === 1) {
-            return Point3.ORIGIN;
+            return Point2.ORIGIN;
           }
           return {
             x: point.x / mag,
             y: point.y / mag
           };
         }
-        Point3.normalize = normalize;
+        Point2.normalize = normalize;
         function magnitude(point) {
           return Math.sqrt(Math.pow(point.x, 2) + Math.pow(point.y, 2));
         }
-        Point3.magnitude = magnitude;
+        Point2.magnitude = magnitude;
         function linear(p0, p1, lambda) {
           return {
             x: (1 - lambda) * p0.x + lambda * p1.x,
             y: (1 - lambda) * p0.y + lambda * p1.y
           };
         }
-        Point3.linear = linear;
+        Point2.linear = linear;
         function euclideanDistance(a2, b) {
           const dx = b.x - a2.x;
           const dy = b.y - a2.y;
           return Math.sqrt(dx * dx + dy * dy);
         }
-        Point3.euclideanDistance = euclideanDistance;
+        Point2.euclideanDistance = euclideanDistance;
         function manhattanDistance(a2, b) {
           return Math.abs(b.x - a2.x) + Math.abs(b.y - a2.y);
         }
-        Point3.manhattanDistance = manhattanDistance;
+        Point2.manhattanDistance = manhattanDistance;
         function maxDistance(a2, b) {
           return Math.max(Math.abs(b.x - a2.x), Math.abs(b.y - a2.y));
         }
-        Point3.maxDistance = maxDistance;
+        Point2.maxDistance = maxDistance;
         function dotProduct(a2, b) {
           return a2.x * b.x + a2.y * b.y;
         }
-        Point3.dotProduct = dotProduct;
-      })(Point2 || (exports.Point = Point2 = {}));
+        Point2.dotProduct = dotProduct;
+      })(Point || (exports.Point = Point = {}));
       function angleOfPoint(p3) {
         return Math.atan2(p3.y, p3.x);
       }
@@ -40409,7 +40409,7 @@ ${JSON.stringify(message, null, 4)}`);
       var sprotty_1 = require_lib4();
       var feedback_action_dispatcher_1 = require_feedback_action_dispatcher();
       var gmodel_util_1 = require_gmodel_util();
-      var GIssueMarker2 = class extends sprotty_1.SIssueMarkerImpl {
+      var GIssueMarker = class extends sprotty_1.SIssueMarkerImpl {
         constructor() {
           super();
           this.issues = [];
@@ -40421,12 +40421,12 @@ ${JSON.stringify(message, null, 4)}`);
           this.projectionCssClasses = ["sprotty-issue", "sprotty-" + severityCss];
         }
       };
-      exports.GIssueMarker = GIssueMarker2;
+      exports.GIssueMarker = GIssueMarker;
       function getOrCreateGIssueMarker(modelElement) {
         let issueMarker;
         issueMarker = getGIssueMarker(modelElement);
         if (issueMarker === void 0) {
-          issueMarker = new GIssueMarker2();
+          issueMarker = new GIssueMarker();
           (0, gmodel_util_1.enableFeatures)(issueMarker, feedback_action_dispatcher_1.feedbackFeature);
           if ((0, sprotty_1.isBoundsAware)(modelElement)) {
             issueMarker.projectedBounds = modelElement.parentToLocal(modelElement.bounds);
@@ -40438,7 +40438,7 @@ ${JSON.stringify(message, null, 4)}`);
       function getGIssueMarker(modelElement) {
         let issueMarker;
         for (const child of modelElement.children) {
-          if (child instanceof GIssueMarker2) {
+          if (child instanceof GIssueMarker) {
             issueMarker = child;
           }
         }
@@ -46699,7 +46699,7 @@ ${JSON.stringify(message, null, 4)}`);
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.MarkerPredicates = void 0;
-      exports.collectIssueMarkers = collectIssueMarkers2;
+      exports.collectIssueMarkers = collectIssueMarkers;
       var sprotty_1 = require_lib4();
       var issue_marker_1 = require_issue_marker();
       var MarkerPredicates;
@@ -46713,13 +46713,13 @@ ${JSON.stringify(message, null, 4)}`);
         }
         MarkerPredicates2.hasIssueWithSeverity = hasIssueWithSeverity;
       })(MarkerPredicates || (exports.MarkerPredicates = MarkerPredicates = {}));
-      function collectIssueMarkers2(root) {
+      function collectIssueMarkers(root) {
         const markers = [];
         for (const child of root.children) {
           if (child instanceof issue_marker_1.GIssueMarker) {
             markers.push(child);
           }
-          markers.push(...collectIssueMarkers2(child));
+          markers.push(...collectIssueMarkers(child));
         }
         return markers;
       }
@@ -46747,23 +46747,23 @@ ${JSON.stringify(message, null, 4)}`);
       var selection_service_1 = require_selection_service();
       var gmodel_util_1 = require_gmodel_util();
       var marker_1 = require_marker();
-      var NavigateToMarkerAction2;
-      (function(NavigateToMarkerAction3) {
-        NavigateToMarkerAction3.KIND = "navigateToMarker";
+      var NavigateToMarkerAction;
+      (function(NavigateToMarkerAction2) {
+        NavigateToMarkerAction2.KIND = "navigateToMarker";
         function is(object) {
-          return sprotty_1.Action.hasKind(object, NavigateToMarkerAction3.KIND) && (0, sprotty_1.hasStringProp)(object, "direction") && (0, sprotty_1.hasArrayProp)(object, "severities");
+          return sprotty_1.Action.hasKind(object, NavigateToMarkerAction2.KIND) && (0, sprotty_1.hasStringProp)(object, "direction") && (0, sprotty_1.hasArrayProp)(object, "severities");
         }
-        NavigateToMarkerAction3.is = is;
+        NavigateToMarkerAction2.is = is;
         function create(options) {
           return {
-            kind: NavigateToMarkerAction3.KIND,
+            kind: NavigateToMarkerAction2.KIND,
             direction: "next",
             severities: MarkerNavigator.ALL_SEVERITIES,
             ...options
           };
         }
-        NavigateToMarkerAction3.create = create;
-      })(NavigateToMarkerAction2 || (exports.NavigateToMarkerAction = NavigateToMarkerAction2 = {}));
+        NavigateToMarkerAction2.create = create;
+      })(NavigateToMarkerAction || (exports.NavigateToMarkerAction = NavigateToMarkerAction = {}));
       var GModelElementComparator = class {
         compare(_one, _other) {
           return 0;
@@ -46899,14 +46899,14 @@ ${JSON.stringify(message, null, 4)}`);
                   id: "next-marker",
                   label: messages_1.messages.context_menu.marker.next,
                   group: "marker",
-                  actions: [NavigateToMarkerAction2.create({ direction: "next", selectedElementIds })],
+                  actions: [NavigateToMarkerAction.create({ direction: "next", selectedElementIds })],
                   isEnabled: () => hasMarkers
                 },
                 {
                   id: "previous-marker",
                   label: messages_1.messages.context_menu.marker.previous,
                   group: "marker",
-                  actions: [NavigateToMarkerAction2.create({ direction: "previous", selectedElementIds })],
+                  actions: [NavigateToMarkerAction.create({ direction: "previous", selectedElementIds })],
                   isEnabled: () => hasMarkers
                 }
               ]
@@ -46925,9 +46925,9 @@ ${JSON.stringify(message, null, 4)}`);
       var MarkerNavigatorKeyListener = class MarkerNavigatorKeyListener extends sprotty_1.KeyListener {
         keyDown(_element, event) {
           if ((0, sprotty_1.matchesKeystroke)(event, "Period", "ctrl")) {
-            return [NavigateToMarkerAction2.create({ direction: "next" })];
+            return [NavigateToMarkerAction.create({ direction: "next" })];
           } else if ((0, sprotty_1.matchesKeystroke)(event, "Comma", "ctrl")) {
-            return [NavigateToMarkerAction2.create({ direction: "previous" })];
+            return [NavigateToMarkerAction.create({ direction: "previous" })];
           }
           return [];
         }
@@ -53957,39 +53957,23 @@ ${JSON.stringify(message, null, 4)}`);
     get editorContext() {
       return this.lazyInjector.get(import_client2.EditorContextService);
     }
-    getItems(root, lastMousePosition) {
-      const goToChildren = [
+    getItems() {
+      const goToItems = [
         {
           id: "next node",
           label: "Next node",
+          parentId: "navigate",
           actions: [import_client2.NavigateAction.create("next")],
           isEnabled: () => this.editorContext.selectedElements.filter(import_workflow_glsp.isTaskNode).length === 1
         },
         {
           id: "previous node",
           label: "Previous node",
+          parentId: "navigate",
           actions: [import_client2.NavigateAction.create("previous")],
           isEnabled: () => this.editorContext.selectedElements.filter(import_workflow_glsp.isTaskNode).length === 1
-        },
-        {
-          id: "next-marker",
-          label: "Go to Next Marker",
-          actions: [import_client2.NavigateToMarkerAction.create({ direction: "next" })],
-          isEnabled: () => collectIssueMarkers(root).length > 0
-        },
-        {
-          id: "previous-marker",
-          label: "Go to Previous Marker",
-          actions: [import_client2.NavigateToMarkerAction.create({ direction: "previous" })],
-          isEnabled: () => collectIssueMarkers(root).length > 0
         }
       ];
-      const goTo = {
-        id: "go-to",
-        label: "Go To",
-        actions: [],
-        children: goToChildren
-      };
       const selectedTasks = this.editorContext.selectedElements.filter(import_workflow_glsp.isTaskNode);
       const editTask = {
         id: "edit-task",
@@ -54004,7 +53988,7 @@ ${JSON.stringify(message, null, 4)}`);
         ] : [],
         isEnabled: () => !this.editorContext.isReadonly && selectedTasks.length === 1
       };
-      return Promise.resolve([editTask, goTo]);
+      return Promise.resolve([editTask, ...goToItems]);
     }
   };
   __decorateClass([
@@ -54013,16 +53997,6 @@ ${JSON.stringify(message, null, 4)}`);
   WorkflowStandaloneContextMenuProvider = __decorateClass([
     Kt()
   ], WorkflowStandaloneContextMenuProvider);
-  function collectIssueMarkers(root) {
-    const markers = [];
-    for (const child of root.children) {
-      if (child instanceof import_client2.GIssueMarker) {
-        markers.push(child);
-      }
-      markers.push(...collectIssueMarkers(child));
-    }
-    return markers;
-  }
 
   // src/common/features/context-menu/standalone-context-menu-module.ts
   var standaloneContextMenuModule = new import_client3.FeatureModule(
