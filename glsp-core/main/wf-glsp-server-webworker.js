@@ -14860,6 +14860,7 @@ ${JSON.stringify(message, null, 4)}`);
         constructor(container) {
           this.container = container;
           this.cache = /* @__PURE__ */ new Map();
+          this.multiCache = /* @__PURE__ */ new Map();
         }
         get(serviceIdentifier) {
           const service = this.getOptional(serviceIdentifier);
@@ -14872,16 +14873,22 @@ ${JSON.stringify(message, null, 4)}`);
           if (this.cache.has(serviceIdentifier)) {
             return this.cache.get(serviceIdentifier);
           }
-          const service = this.container.isBound(serviceIdentifier) ? this.container.get(serviceIdentifier) : void 0;
+          if (!this.container.isBound(serviceIdentifier)) {
+            return void 0;
+          }
+          const service = this.container.get(serviceIdentifier);
           this.cache.set(serviceIdentifier, service);
           return service;
         }
         getAll(serviceIdentifier) {
-          if (this.cache.has(serviceIdentifier)) {
-            return this.cache.get(serviceIdentifier);
+          if (this.multiCache.has(serviceIdentifier)) {
+            return this.multiCache.get(serviceIdentifier);
           }
-          const services = this.container.isBound(serviceIdentifier) ? this.container.getAll(serviceIdentifier) : [];
-          this.cache.set(serviceIdentifier, services);
+          if (!this.container.isBound(serviceIdentifier)) {
+            return [];
+          }
+          const services = this.container.getAll(serviceIdentifier);
+          this.multiCache.set(serviceIdentifier, services);
           return services;
         }
       };
