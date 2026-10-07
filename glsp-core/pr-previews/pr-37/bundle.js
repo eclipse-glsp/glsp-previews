@@ -28234,26 +28234,20 @@ ${JSON.stringify(message, null, 4)}`);
       "use strict";
       Object.defineProperty(exports, "__esModule", { value: true });
       exports.ProtocolVersion = exports.GLSP_PROTOCOL_VERSION = void 0;
-      exports.GLSP_PROTOCOL_VERSION = "2.0.0";
+      exports.GLSP_PROTOCOL_VERSION = "3.0.0";
+      var VERSION_PATTERN = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+      function parse2(version2) {
+        if (typeof version2 !== "string") {
+          return void 0;
+        }
+        const match = VERSION_PATTERN.exec(version2);
+        return match ? { major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3]) } : void 0;
+      }
+      function supportedRange(version2) {
+        return `>=${version2.major}.0.0 <${version2.major + 1}.0.0`;
+      }
       var ProtocolVersion;
       (function(ProtocolVersion2) {
-        const VERSION_PATTERN = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
-        function parse2(version2) {
-          if (typeof version2 !== "string") {
-            return void 0;
-          }
-          const match = VERSION_PATTERN.exec(version2);
-          return match ? { major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3]) } : void 0;
-        }
-        ProtocolVersion2.parse = parse2;
-        function supportedRange(version2) {
-          const parsed = typeof version2 === "string" ? parse2(version2) : version2;
-          if (!parsed) {
-            throw new Error(`Invalid protocol version '${version2}'`);
-          }
-          return `>=${parsed.major}.0.0 <${parsed.major + 1}.0.0`;
-        }
-        ProtocolVersion2.supportedRange = supportedRange;
         function checkCompatibility(clientVersion, serverVersion) {
           const client = parse2(clientVersion);
           const server = parse2(serverVersion);
@@ -28371,7 +28365,6 @@ ${JSON.stringify(message, null, 4)}`);
       var sprotty_protocol_1 = require_lib();
       var event_1 = require_event();
       var glsp_client_1 = require_glsp_client();
-      var protocol_version_1 = require_protocol_version();
       var glsp_jsonrpc_client_1 = require_glsp_jsonrpc_client();
       var BaseJsonrpcGLSPClient2 = class {
         get onServerInitialized() {
@@ -28429,9 +28422,7 @@ ${JSON.stringify(message, null, 4)}`);
           const initializeDeferred = new sprotty_protocol_1.Deferred();
           try {
             this.pendingServerInitialize = initializeDeferred.promise;
-            const result = await this.checkedConnection.sendRequest(glsp_jsonrpc_client_1.JsonrpcGLSPClient.InitializeRequest, params);
-            this.validateProtocolVersion(params, result);
-            this._initializeResult = result;
+            this._initializeResult = await this.checkedConnection.sendRequest(glsp_jsonrpc_client_1.JsonrpcGLSPClient.InitializeRequest, params);
             this.onServerInitializedEmitter.fire(this._initializeResult);
             initializeDeferred.resolve(this._initializeResult);
             this.pendingServerInitialize = void 0;
@@ -28441,13 +28432,6 @@ ${JSON.stringify(message, null, 4)}`);
             this.pendingServerInitialize = void 0;
           }
           return initializeDeferred.promise;
-        }
-        /**
-         * Rejects server protocol versions that are incompatible with the version the client requested
-         * and logs a warning for compatible versions that differ. See {@link ProtocolVersion.checkCompatibility}.
-         */
-        validateProtocolVersion(params, result) {
-          protocol_version_1.ProtocolVersion.validate(params.protocolVersion, result.protocolVersion, (warning) => console.warn(warning));
         }
         initializeClientSession(params) {
           return this.checkedConnection.sendRequest(glsp_jsonrpc_client_1.JsonrpcGLSPClient.InitializeClientSessionRequest, params);
@@ -30298,7 +30282,6 @@ ${JSON.stringify(message, null, 4)}`);
       var array_util_1 = require_array_util();
       var event_1 = require_event();
       var glsp_client_1 = require_glsp_client();
-      var protocol_version_1 = require_protocol_version();
       exports.GLOBAL_HANDLER_ID = "*";
       var BaseGLSPClient = class {
         get onServerInitialized() {
@@ -30384,9 +30367,7 @@ ${JSON.stringify(message, null, 4)}`);
           const initializeDeferred = new sprotty_protocol_1.Deferred();
           try {
             this.pendingServerInitialize = initializeDeferred.promise;
-            const result = await this.checkedServer.initialize(params);
-            this.validateProtocolVersion(params, result);
-            this._initializeResult = result;
+            this._initializeResult = await this.checkedServer.initialize(params);
             this.onServerInitializedEmitter.fire(this._initializeResult);
             initializeDeferred.resolve(this._initializeResult);
             this.pendingServerInitialize = void 0;
@@ -30396,13 +30377,6 @@ ${JSON.stringify(message, null, 4)}`);
             this.pendingServerInitialize = void 0;
           }
           return initializeDeferred.promise;
-        }
-        /**
-         * Rejects server protocol versions that are incompatible with the version the client requested
-         * and logs a warning for compatible versions that differ. See {@link ProtocolVersion.checkCompatibility}.
-         */
-        validateProtocolVersion(params, result) {
-          protocol_version_1.ProtocolVersion.validate(params.protocolVersion, result.protocolVersion, (warning) => console.warn(warning));
         }
         initializeClientSession(params) {
           return this.checkedServer.initializeClientSession(params);
