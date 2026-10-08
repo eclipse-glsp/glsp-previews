@@ -12499,6 +12499,67 @@ ${JSON.stringify(message, null, 4)}`);
     }
   });
 
+  // ../../packages/common/protocol/lib/client-server-protocol/protocol-version.js
+  var require_protocol_version = __commonJS({
+    "../../packages/common/protocol/lib/client-server-protocol/protocol-version.js"(exports) {
+      "use strict";
+      Object.defineProperty(exports, "__esModule", { value: true });
+      exports.ProtocolVersion = exports.GLSP_PROTOCOL_VERSION = void 0;
+      exports.GLSP_PROTOCOL_VERSION = "3.0.0";
+      var VERSION_PATTERN = /^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)$/;
+      function parse2(version2) {
+        if (typeof version2 !== "string") {
+          return void 0;
+        }
+        const match = VERSION_PATTERN.exec(version2);
+        return match ? { major: Number(match[1]), minor: Number(match[2]), patch: Number(match[3]) } : void 0;
+      }
+      function supportedRange(version2) {
+        return `>=${version2.major}.0.0 <${version2.major + 1}.0.0`;
+      }
+      var ProtocolVersion;
+      (function(ProtocolVersion2) {
+        function checkCompatibility(clientVersion, serverVersion) {
+          const client = parse2(clientVersion);
+          const server = parse2(serverVersion);
+          if (!server) {
+            return { compatible: false, message: `Invalid server protocol version '${serverVersion}'. Expected MAJOR.MINOR.PATCH.` };
+          }
+          if (!client) {
+            return {
+              compatible: false,
+              message: `Invalid client protocol version '${clientVersion}'. Expected MAJOR.MINOR.PATCH (server supports: ${supportedRange(server)}).`
+            };
+          }
+          if (client.major !== server.major) {
+            return {
+              compatible: false,
+              message: `Client protocol version ${clientVersion} is not compatible with server protocol version ${serverVersion} (server supports: ${supportedRange(server)}).`
+            };
+          }
+          if (client.minor !== server.minor) {
+            return {
+              compatible: true,
+              warning: `Client protocol version ${clientVersion} differs from server protocol version ${serverVersion}. The versions are compatible, but features of the newer version may be unavailable.`
+            };
+          }
+          return { compatible: true };
+        }
+        ProtocolVersion2.checkCompatibility = checkCompatibility;
+        function validate2(clientVersion, serverVersion, onWarning) {
+          const result = checkCompatibility(clientVersion, serverVersion);
+          if (!result.compatible) {
+            throw new Error(result.message);
+          }
+          if (result.warning) {
+            onWarning == null ? void 0 : onWarning(result.warning);
+          }
+        }
+        ProtocolVersion2.validate = validate2;
+      })(ProtocolVersion || (exports.ProtocolVersion = ProtocolVersion = {}));
+    }
+  });
+
   // ../../packages/common/protocol/lib/client-server-protocol/glsp-client.js
   var require_glsp_client = __commonJS({
     "../../packages/common/protocol/lib/client-server-protocol/glsp-client.js"(exports) {
@@ -12507,6 +12568,7 @@ ${JSON.stringify(message, null, 4)}`);
       exports.GLSPClient = exports.ClientState = exports.ApplicationIdProvider = void 0;
       var type_util_1 = require_type_util();
       var uuid_1 = require_uuid();
+      var protocol_version_1 = require_protocol_version();
       var ApplicationIdProvider = class _ApplicationIdProvider {
         static get() {
           if (!_ApplicationIdProvider._applicationId) {
@@ -12532,7 +12594,7 @@ ${JSON.stringify(message, null, 4)}`);
           return type_util_1.AnyObject.is(object) && (0, type_util_1.hasStringProp)(object, "id");
         }
         GLSPClient2.isOptions = isOptions;
-        GLSPClient2.protocolVersion = "1.0.0";
+        GLSPClient2.protocolVersion = protocol_version_1.GLSP_PROTOCOL_VERSION;
       })(GLSPClient || (exports.GLSPClient = GLSPClient = {}));
     }
   });
@@ -13902,6 +13964,7 @@ ${JSON.stringify(message, null, 4)}`);
       __exportStar(require_worker_connection_provider(), exports);
       __exportStar(require_ws_connection_provider(), exports);
       __exportStar(require_mcp(), exports);
+      __exportStar(require_protocol_version(), exports);
       __exportStar(require_types2(), exports);
       __exportStar(require_default_types(), exports);
       __exportStar(require_model_schema(), exports);
@@ -20075,10 +20138,12 @@ ${JSON.stringify(message, null, 4)}`);
           this.clientSessions = /* @__PURE__ */ new Map();
           serverListeners.forEach((listener) => this.addListener(listener));
         }
+        /**
+         * Rejects clients whose protocol version is incompatible with {@link DefaultGLSPServer.PROTOCOL_VERSION}
+         * and logs a warning for compatible versions that differ. See {@link ProtocolVersion.checkCompatibility}.
+         */
         validateProtocolVersion(params) {
-          if (params.protocolVersion !== DefaultGLSPServer_1.PROTOCOL_VERSION) {
-            throw new Error(`Protocol version mismatch! The client protocol version ${params.protocolVersion} is not compatible with the server protocol version ${DefaultGLSPServer_1.PROTOCOL_VERSION}!`);
-          }
+          protocol_1.ProtocolVersion.validate(params.protocolVersion, DefaultGLSPServer_1.PROTOCOL_VERSION, (warning) => this.logger.warn(warning));
         }
         validateServerInitialized() {
           if (!this.isInitialized()) {
@@ -20226,7 +20291,7 @@ ${JSON.stringify(message, null, 4)}`);
         getListenersToNotify(method) {
           return this.serverListeners.filter((listener) => listener[method]);
         }
-      }, DefaultGLSPServer_1 = _a4, _a4.PROTOCOL_VERSION = "1.0.0", _a4);
+      }, DefaultGLSPServer_1 = _a4, _a4.PROTOCOL_VERSION = protocol_1.GLSP_PROTOCOL_VERSION, _a4);
       exports.DefaultGLSPServer = DefaultGLSPServer;
       __decorate([
         (0, inversify_1.inject)(logger_1.Logger),
