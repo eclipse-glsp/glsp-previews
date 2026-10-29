@@ -18658,7 +18658,6 @@ ${JSON.stringify(message, null, 4)}`);
       exports.LayoutOperationHandler = void 0;
       var protocol_1 = require_lib2();
       var inversify_1 = require_cjs4();
-      var command_1 = require_command();
       var recording_command_1 = require_recording_command();
       var diagram_configuration_1 = require_diagram_configuration();
       var operation_handler_1 = require_operation_handler();
@@ -18687,8 +18686,11 @@ ${JSON.stringify(message, null, 4)}`);
           return this.createLayoutCommand(result, operation);
         }
         /**
-         * Creates the command that persists the given layout result. Override to persist a layout differently, e.g. in a
-         * single source model transaction.
+         * Creates the command that persists the given layout result. By default, the operations created by
+         * {@link LayoutOperationHandler.createChangeBoundsOperation} and
+         * {@link LayoutOperationHandler.createChangeRoutingPointsOperation} are combined into one {@link CompoundOperation}
+         * and executed by its handler. Override to persist a layout other than through operations, e.g. in a single source
+         * model transaction.
          *
          * Without a handler for {@link ChangeBoundsOperation}s the layout is not persisted at all, as moving the shapes is
          * the core of a layout and rerouting edges between shapes that did not move would leave the diagram inconsistent.
@@ -18697,38 +18699,37 @@ ${JSON.stringify(message, null, 4)}`);
          * @returns the command, or `undefined` if there is nothing to persist.
          */
         async createLayoutCommand(result, operation) {
+          var _a4;
           if (!this.operationHandlerRegistry.getOperationHandler(protocol_1.ChangeBoundsOperation.create([]))) {
             this.logger.warn("Could not persist the layout. No handler for `ChangeBoundsOperation`s is registered!");
             return void 0;
           }
-          const commands = [];
-          const boundsCommand = await this.createChangeBoundsCommand(result, operation);
-          if (boundsCommand) {
-            commands.push(boundsCommand);
+          const operations = [
+            await this.createChangeBoundsOperation(result, operation),
+            await this.createChangeRoutingPointsOperation(result, operation)
+          ].filter((op) => op !== void 0);
+          if (operations.length === 0) {
+            return void 0;
           }
-          const routingPointsCommand = await this.createChangeRoutingPointsCommand(result, operation);
-          if (routingPointsCommand) {
-            commands.push(routingPointsCommand);
-          }
-          return commands.length > 0 ? new command_1.CompoundCommand(commands) : void 0;
+          const compoundOperation = protocol_1.CompoundOperation.create(operations);
+          return (_a4 = this.operationHandlerRegistry.getOperationHandler(compoundOperation)) == null ? void 0 : _a4.execute(compoundOperation);
         }
         /**
-         * Creates the command that persists the new bounds of the given layout result, using the diagram language's handler
-         * for {@link ChangeBoundsOperation}s.
+         * Creates the operation that persists the new bounds of the given layout result, using the diagram language's
+         * handler for {@link ChangeBoundsOperation}s.
+         * @returns the operation, or `undefined` to leave the bounds out of the layout.
          */
-        createChangeBoundsCommand(result, _operation) {
-          return this.createDelegateCommand(protocol_1.ChangeBoundsOperation.create(result.bounds));
+        createChangeBoundsOperation(result, _operation) {
+          return protocol_1.ChangeBoundsOperation.create(result.bounds);
         }
         /**
-         * Creates the command that persists the new routing points of the given layout result, using the diagram language's
-         * handler for {@link ChangeRoutingPointsOperation}s.
+         * Creates the operation that persists the new routing points of the given layout result, using the diagram
+         * language's handler for {@link ChangeRoutingPointsOperation}s. If the language has no such handler, the
+         * {@link CompoundOperation} skips this operation and only the bounds are persisted.
+         * @returns the operation, or `undefined` to leave the routing points out of the layout.
          */
-        createChangeRoutingPointsCommand(result, _operation) {
-          return this.createDelegateCommand(protocol_1.ChangeRoutingPointsOperation.create(result.routingPoints));
-        }
-        createDelegateCommand(operation) {
-          var _a4;
-          return (_a4 = this.operationHandlerRegistry.getOperationHandler(operation)) == null ? void 0 : _a4.execute(operation);
+        createChangeRoutingPointsOperation(result, _operation) {
+          return protocol_1.ChangeRoutingPointsOperation.create(result.routingPoints);
         }
         async executeOperation(operation) {
           var _a4;
@@ -20617,6 +20618,7 @@ ${JSON.stringify(message, null, 4)}`);
       var graph_1 = require_lib3();
       var protocol_1 = require_lib2();
       var inversify_1 = require_cjs4();
+      var layout_util_1 = require_layout_util();
       var gmodel_operation_handler_1 = require_gmodel_operation_handler();
       var GModelChangeBoundsOperationHandler = class GModelChangeBoundsOperationHandler extends gmodel_operation_handler_1.GModelOperationHandler {
         constructor() {
@@ -20648,9 +20650,8 @@ ${JSON.stringify(message, null, 4)}`);
         }
         changeElementBounds(elementId, newSize, newPosition) {
           const index = this.modelState.index;
-          const portToUpdate = index.findByClass(elementId, graph_1.GPort);
-          if (portToUpdate) {
-            this.changePortBounds(portToUpdate, newSize, newPosition);
+          if (index.findByClass(elementId, graph_1.GPort) || index.findByClass(elementId, graph_1.GLabel)) {
+            (0, layout_util_1.applyElementAndBounds)({ elementId, newSize, newPosition }, index);
             return;
           }
           const nodeToUpdate = index.findByClass(elementId, graph_1.GNode);
@@ -20671,16 +20672,6 @@ ${JSON.stringify(message, null, 4)}`);
           }
           nodeToUpdate.size = newSize;
           nodeToUpdate.position = positionToSet;
-        }
-        /**
-         * Applies the bounds of a port as given. Unlike node positions, port positions are not clamped to the parent's
-         * bounds, as ports are commonly placed on or outside of their node's border.
-         */
-        changePortBounds(port, newSize, newPosition) {
-          port.size = newSize;
-          if (newPosition) {
-            port.position = newPosition;
-          }
         }
       };
       exports.GModelChangeBoundsOperationHandler = GModelChangeBoundsOperationHandler;
@@ -114390,26 +114381,32 @@ ${JSON.stringify(message, null, 4)}`);
           (_c = elkNode.edges) == null ? void 0 : _c.forEach((elkEdge) => this.collectEdge(elkEdge, result));
         }
         /**
-         * Collects the bend points of the first section as routing points. The section's start and end point are left out,
-         * as they are the source and target point of the edge's route, which the client computes from the anchors.
+         * Collects the bend points of the first section as routing points and the bounds of the edge's labels. The
+         * section's start and end point are left out, as they are the source and target point of the edge's route, which
+         * the client computes from the anchors.
          */
         collectEdge(elkEdge, result) {
-          var _a4, _b2;
-          const section = (_a4 = elkEdge.sections) == null ? void 0 : _a4[0];
+          var _a4, _b2, _c;
+          (_a4 = elkEdge.labels) == null ? void 0 : _a4.forEach((elkLabel) => this.collectShape(elkLabel, result));
+          const section = (_b2 = elkEdge.sections) == null ? void 0 : _b2[0];
           if (!section) {
             return;
           }
-          result.routingPoints.push({ elementId: elkEdge.id, newRoutingPoints: (_b2 = section.bendPoints) != null ? _b2 : [] });
+          result.routingPoints.push({ elementId: elkEdge.id, newRoutingPoints: (_c = section.bendPoints) != null ? _c : [] });
         }
+        /**
+         * Collects the bounds of the given shape and of its labels. Shapes that ELK did not place are left out.
+         */
         collectShape(elkShape, result) {
-          if (elkShape.x === void 0 || elkShape.y === void 0 || elkShape.width === void 0 || elkShape.height === void 0) {
-            return;
+          var _a4;
+          if (elkShape.id !== void 0 && elkShape.x !== void 0 && elkShape.y !== void 0 && elkShape.width !== void 0 && elkShape.height !== void 0) {
+            result.bounds.push({
+              elementId: elkShape.id,
+              newPosition: { x: elkShape.x, y: elkShape.y },
+              newSize: { width: elkShape.width, height: elkShape.height }
+            });
           }
-          result.bounds.push({
-            elementId: elkShape.id,
-            newPosition: { x: elkShape.x, y: elkShape.y },
-            newSize: { width: elkShape.width, height: elkShape.height }
-          });
+          (_a4 = elkShape.labels) == null ? void 0 : _a4.forEach((elkLabel) => this.collectShape(elkLabel, result));
         }
         transformToElk(model) {
           if (model instanceof server_1.GGraph) {
